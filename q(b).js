@@ -6,18 +6,19 @@ const xhr = new XMLHttpRequest();
 
 xhr.open('GET', 'https://restcountries.com/v3.1/all');
 
-xhr.send();
+
 xhr.onload = function() {
-   console.log(xhr.responseText)
-}
+   let countries = JSON.parse(xhr.responseText)
 
-//Get all the countries with a population of less than 2 lakhs using Filter function
-
-let countries = (value)=> {
-    if (value < "200000" ) {
-        return "population";
+   
+  let countrypopulation = countries.filter (country => {
+    if (country.population < 200000 && Object.keys(country.population)){
+      return true
     }
+     })
+     
+   console.log(countrypopulation.map(country => country.name.common).join('\n'))
 
 }
-let population = countries.filter(country)
-console.log(population)
+
+xhr.send();

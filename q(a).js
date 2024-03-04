@@ -1,3 +1,4 @@
+//Get all the countries from Asia continent /region using Filter function
 
 const XMLHttpRequest = require('xhr2');
 
@@ -5,19 +6,24 @@ const xhr = new XMLHttpRequest();
 
 xhr.open('GET', 'https://restcountries.com/v3.1/all');
 
-xhr.send();
+
 xhr.onload = function() {
-   console.log(xhr.responseText)
-}
+let countries = JSON.parse(xhr.responseText)
 
-//Get all the countries from Asia continent /region using Filter function
 
-let country = (continents) => {
-    if (continents == "Asia continent") {
-        return "continent";
+  let AsiaContinent = countries.filter(country =>{
+    if(country.continents && Object.values(country.continents).includes("Asia")){
+        return true
     }
 
+
+ })
+ console.log(AsiaContinent.map(country => country.name.common).join('\n'))
 }
-let countries = country.filter(country)
-console.log(countries)
+
+
+ xhr.send();
+
+
+
 

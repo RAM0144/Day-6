@@ -6,18 +6,24 @@ const xhr = new XMLHttpRequest();
 
 xhr.open('GET', 'https://restcountries.com/v3.1/all');
 
-xhr.send();
+
 xhr.onload = function() {
-   console.log(xhr.responseText)
+   let countries = JSON.parse(xhr.responseText)
+
+
+ let population = countries.filter(country => {
+   return country.population
+ })
+// if(country.population && Object.values(country.population).includes("population")){
+//     return true 
+// }
+// })
+
+ let populations =(previousvalue,currentvalue) => {
+   return previousvalue + currentvalue
+   }
 }
+let totalpopulation = population.reduce(populations)
+ console.log(totalpopulation)   
 
-//Print the total population of countries using reduce function
-
-let country = (value) => {
-    if (value == "population") {
-        return totalPopulation
-    }
-
-}
-let totalPopulation = country.filter(country)
-console.log(totalPopulation)
+xhr.send();

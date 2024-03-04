@@ -6,19 +6,20 @@ const xhr = new XMLHttpRequest();
 
 xhr.open('GET', 'https://restcountries.com/v3.1/all');
 
-xhr.send();
+
 xhr.onload = function() {
-   console.log(xhr.responseText)
-}
-
-//Print the country that uses US dollars as currency.
-
-
-let country = (value) => {
-    if (value % UsDollars) {
-        return "country";
+   let Countries=JSON.parse(xhr.responseText)
+ 
+   let usdCountries = Countries.filter(country =>{
+    if(country.currencies && Object.keys(country.currencies).includes('USD')){
+        return true;
     }
+   })
+  console.log(usdCountries.map(country => country.name.common).join('\n'));
+  
+}    
 
-}
-let UsDollars = country.filter(country)
-console.log(UsDollars)
+
+
+xhr.send();
+
